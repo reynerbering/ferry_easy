@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/constants.dart';
-
 class ButtonWidget extends StatelessWidget {
   final String buttonTitle;
   final Color buttonBackgroundColor;

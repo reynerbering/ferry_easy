@@ -2,162 +2,187 @@ import 'package:ferry_easy/constants/constants.dart';
 import 'package:ferry_easy/presentation/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 
-class WelcomeBackLogin extends StatelessWidget {
-  const WelcomeBackLogin({super.key});
+class WelcomeBackLoginScreen extends StatelessWidget {
+  const WelcomeBackLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(children: [
-        // ! Background image container
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/login-welcome.png'),
-                fit: BoxFit.cover),
-          ),
-        ),
+    return Container(
+      // ! Background image holder + transparent color on scaffold to show the bg image
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/images/login-welcome.png'),
+            fit: BoxFit.cover),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: SizedBox(
+                height: MediaQuery.of(context)
+                    .size
+                    .height, //! Avoid overflow, put it in a sized box and mediaquery of the device
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 150, bottom: 200),
+                        height: 65,
+                        width: double.infinity,
+                        child: const Text(
+                          'Welcome Back',
+                          style: defaultHeadingBold,
+                        ),
+                      ),
 
-        Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const Spacer(),
-              const Text(
-                'Welcome Back',
-                style: defaultHeadingBold,
-              ),
-              const Spacer(),
-              // ! Username Text Field Form
-              const UsernameTextWidget(),
-              const SizedBox(
-                height: 20,
-              ),
-              // ! Password Text Field Form
+                      // ! Username Text Field Form
+                      const UsernameForm(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      // ! Password Text Field Form
 
-              const PasswordTextField(),
-              const SizedBox(height: 20),
-              // ! Forgot Password area
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    // ! Added Inkwell onTap function for forgot password
-                    // todo: add navigating screen for forgot password
-                    onTap: () {},
-                    child: const Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                          color: ferryPrimaryColor,
-                          fontWeight: FontWeight.w700),
-                    ),
+                      const PasswordForm(),
+                      const SizedBox(height: 20),
+                      // ! Forgot Password area
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            // ! Added Inkwell onTap function for forgot password
+                            // todo: add navigating screen for forgot password
+                            onTap: () => print('ON TAP PRINT'),
+                            child: const Text(
+                              'Forgot Password?',
+                              style: TextStyle(
+                                  color: ferryPrimaryColor,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      // ! Button Widget Login and Signup button
+                      // todo: need to add on tap function for login/signup directory
+                      const ButtonWidget(
+                          buttonTitle: 'Log In',
+                          buttonBackgroundColor: ferryPrimaryColor,
+                          buttonForegroundColor: Colors.white,
+                          buttonSideColor: Colors.transparent),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                right: 15.0,
+                              ),
+                              child: const Divider(
+                                color: Colors.grey,
+                                height: 50,
+                              ),
+                            ),
+                          ),
+                          const Text(
+                            'or',
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                left: 15.0,
+                              ),
+                              child: const Divider(
+                                color: Colors.grey,
+                                height: 50,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const ButtonWidget(
+                          buttonTitle: 'Sign Up',
+                          buttonBackgroundColor: Colors.transparent,
+                          buttonForegroundColor: ferryPrimaryColor,
+                          buttonSideColor: ferryPrimaryColor),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              // todo: need to add on tap function for login/signup directory
-
-              const ButtonWidget(
-                  buttonTitle: 'Log In',
-                  buttonBackgroundColor: ferryPrimaryColor,
-                  buttonForegroundColor: Colors.white,
-                  buttonSideColor: Colors.transparent),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'or',
-                      style: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.w600),
-                    ),
-                  ],
                 ),
               ),
-              const ButtonWidget(
-                  buttonTitle: 'Sign Up',
-                  buttonBackgroundColor: Colors.transparent,
-                  buttonForegroundColor: ferryPrimaryColor,
-                  buttonSideColor: ferryPrimaryColor),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
-        ),
-      ]),
-    );
-  }
-}
-
-// ! Usename Text widget and Password Text Widget modifiables
-// todo : validations and firebase
-
-class UsernameTextWidget extends StatelessWidget {
-  const UsernameTextWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: TextField(
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-        decoration: InputDecoration(
-          hintText: 'ferryeasy@gmail.com',
-          hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
-          // ! White color underline when not tapped
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: ferryPrimaryColor),
-          ),
-          // ! White color underline when tapped and used
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: ferryPrimaryColor),
-          ),
-          // ! Icon beside the the form
-          prefixIcon: IconTheme(
-            data: IconThemeData(color: ferryPrimaryColor),
-            child: Icon(Icons.person),
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class PasswordTextField extends StatelessWidget {
-  const PasswordTextField({
+// ! Usename Text widget and Password Text Widget modifiables
+// todo : validators and firebase
+
+class UsernameForm extends StatelessWidget {
+  const UsernameForm({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: TextField(
-        obscureText: true,
-        enableSuggestions: true,
-        autocorrect: false,
-        // ! Pasword Security measures above ^
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-        decoration: InputDecoration(
-          hintText: 'Password',
-          hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
-          // ! White color underline when not tapped
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: ferryPrimaryColor),
-          ),
-          // ! White color underline when tapped and used
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: ferryPrimaryColor),
-          ),
-          // ! Icon beside the the form
-          prefixIcon: IconTheme(
-            data: IconThemeData(color: ferryPrimaryColor),
-            child: Icon(Icons.lock),
-          ),
+    return TextFormField(
+      style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+      decoration: const InputDecoration(
+        hintText: 'Username',
+        hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
+        // ! White color underline when not tapped
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ferryPrimaryColor),
+        ),
+        // ! White color underline when tapped and used
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ferryPrimaryColor),
+        ),
+        // ! Icon beside the the form
+        prefixIcon: IconTheme(
+          data: IconThemeData(color: ferryPrimaryColor),
+          child: Icon(Icons.person),
+        ),
+      ),
+    );
+  }
+}
+
+class PasswordForm extends StatelessWidget {
+  const PasswordForm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: true,
+      enableSuggestions: true,
+      autocorrect: false,
+      // ! Pasword Security measures above ^
+      style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+      decoration: const InputDecoration(
+        hintText: 'Password',
+        hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
+        // ! White color underline when not tapped
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ferryPrimaryColor),
+        ),
+        // ! White color underline when tapped and used
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ferryPrimaryColor),
+        ),
+        // ! Icon beside the the form
+        prefixIcon: IconTheme(
+          data: IconThemeData(color: ferryPrimaryColor),
+          child: Icon(Icons.lock),
         ),
       ),
     );
