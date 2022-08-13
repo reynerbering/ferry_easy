@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^1.1.3
+  
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -43,6 +44,13 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^2.2.7
+  
+
+flutter_native_splash:
+  image: assets/images/ferryeasy-logo-splash.png
+  background_image: "assets/images/splash-bg-image.png"
+  # flutter pub run flutter_native_splash:create
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
