@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  final String buttonTitle;
-  final Color buttonBackgroundColor;
-  final Color buttonForegroundColor;
-  final Color buttonSideColor;
-
   const ButtonWidget({
     Key? key,
     required this.buttonTitle,
@@ -14,15 +9,22 @@ class ButtonWidget extends StatelessWidget {
     required this.buttonSideColor,
   }) : super(key: key);
 
+  final Color buttonBackgroundColor;
+  final Color buttonForegroundColor;
+  final Color buttonSideColor;
+  final String buttonTitle;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {},
-        style: TextButton.styleFrom(
-            backgroundColor: buttonBackgroundColor,
-            foregroundColor: buttonForegroundColor,
+        style: ElevatedButton.styleFrom(
+            primary:
+                buttonBackgroundColor, // Background button color for elevated button
+            onPrimary:
+                buttonForegroundColor, // Foreground button color for elevated button
             elevation: 0,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: buttonSideColor),
