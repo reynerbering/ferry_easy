@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const Dashboard(),
+      home: const LogInSignUpScreen(),
     );
   }
 }
